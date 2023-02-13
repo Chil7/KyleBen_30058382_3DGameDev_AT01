@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    //list variable for stack
+    private List<Stack> nodeStack; 
+    //list v for path
+    //list of all nodes in the graph
+    //var for starting, current, destination node
+
     [Tooltip("Movement speed modifier.")]
     [SerializeField] private float speed = 3;
     private Node currentNode;
+
+    private Node startNode;
+    private Node targetNode;
+
     private Vector3 currentDir;
     private bool playerCaught = false;
 
     public delegate void GameEndDelegate();
-    public event GameEndDelegate GameOverEvent = delegate { };
+    public event GameEndDelegate GameOverEvent  = delegate { };
 
     // Start is called before the first frame update
     void Start()
     {
         InitializeAgent();
+
+        //find all available nodes and add thme to the node list
     }
 
     // Update is called once per frame
@@ -68,4 +80,39 @@ public class Enemy : MonoBehaviour
     }
 
     //Implement DFS algorithm method here
+    public List<Node> FindPath(Node startNode, Node targetNode)
+    {
+        //set current node as start node
+        currentNode = startNode;
+
+        //Add current to the Stack
+        //nodeStack.Insert(0, Node );
+
+        //set local variable found to false
+
+        //Initiate while Loop to continue so long as "found" is false
+        //Check if currentNode is the target node
+        //if it isn't, continue the loop
+        //otherwise set 'found' to true and break the loop
+
+        //for eacj mreighour of curent node
+        //check if its on the stack
+        //heck if its already searched
+        //if neither is true, add neighour to stack and set currentNode as parent
+
+        //set current node to 'searched'
+        //remove currentNode from stack
+
+        //check if the stack is empty 
+        //yes: break loop and return null with erroe message
+        //no: set last node in stack as currentNode and return to start of loop
+
+        //Initiate while Loop to continue so long as 'found' is true
+        //Add 'currentNode' to path
+        //check if curretnnode has parent
+        //if does, set parent as cuurent Node and continue loop
+        //otherwise retrun path value
+
+        return null;
+    }
 }

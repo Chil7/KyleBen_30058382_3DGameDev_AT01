@@ -9,6 +9,8 @@ public class Node : MonoBehaviour
     [Tooltip("Child directly below node should always be first in array.")]
     [SerializeField] private Node[] children;
 
+    //a boolean variable for checking if this node has been searched
+
     /// <summary>
     /// Returns the children of the node.
     /// </summary>
@@ -19,6 +21,18 @@ public class Node : MonoBehaviour
     public Node[] Parents { get { return parents; } }
 
     private Vector3 offset = new Vector3(0, 1, 0);
+
+    private void Start()
+    {
+        //find all neighbouring nodes and addd the to neighbour
+    }
+
+    private void Update()
+    {
+        //method for toggling 'searched' between true and false
+
+        //method for clearing the parent node
+    }
 
     private void OnDrawGizmos()
     {

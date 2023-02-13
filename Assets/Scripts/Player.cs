@@ -69,8 +69,19 @@ public class Player : MonoBehaviour
     //Implement mouse interaction method here
     public void MouseInteraction(int index)
     {
+        switch (index)
+        {
+            case 4:
+                {
+                    return;
+                }
+            case 5:
+                {
+                    return;
+                }
+            //Move UP
+        }
         
-        //MoveToNode();
     }
 
     /// <summary>
