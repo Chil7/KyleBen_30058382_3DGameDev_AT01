@@ -33,6 +33,24 @@ public class Player : MonoBehaviour
         if (moving == false)
         {
             //Implement inputs and event-callbacks here
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                
+                Debug.Log("Up");
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                
+                Debug.Log("Down");
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Debug.Log("Left");
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Debug.Log("Right");
+            }
         }
         else
         {
@@ -49,6 +67,11 @@ public class Player : MonoBehaviour
     }
 
     //Implement mouse interaction method here
+    public void MouseInteraction(int index)
+    {
+        
+        //MoveToNode();
+    }
 
     /// <summary>
     /// Sets the players target node and current directon to the specified node.
