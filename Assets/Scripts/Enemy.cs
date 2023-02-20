@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     //list variable for stack
-    private List<Stack> nodeStack; 
+    private List<Node> nodeStack;
+
     //list v for path
+    private List<Node> nodePath;
+
     //list of all nodes in the graph
+    private List<Node> nodeGraph;
+
     //var for starting, current, destination node
 
     [Tooltip("Movement speed modifier.")]
@@ -82,23 +88,41 @@ public class Enemy : MonoBehaviour
     //Implement DFS algorithm method here
     public List<Node> FindPath(Node startNode, Node targetNode)
     {
+        int addLocation = 0;
         //set current node as start node
         currentNode = startNode;
 
         //Add current to the Stack
+        nodeStack.Insert(addLocation, currentNode);
         //nodeStack.Insert(0, Node );
 
         //set local variable found to false
+        bool isFound = false;
 
         //Initiate while Loop to continue so long as "found" is false
         //Check if currentNode is the target node
         //if it isn't, continue the loop
         //otherwise set 'found' to true and break the loop
+        while (isFound == false)
+        {
+            if (currentNode == targetNode)
+            {
+                isFound = true;
+                break;
+            }
+            else
+                return null;
+        }
+        
 
-        //for eacj mreighour of curent node
+        //for each neighbour of current node
         //check if its on the stack
-        //heck if its already searched
+        //Check if its already searched
         //if neither is true, add neighour to stack and set currentNode as parent
+
+        //foreach (Node.)
+        
+
 
         //set current node to 'searched'
         //remove currentNode from stack
