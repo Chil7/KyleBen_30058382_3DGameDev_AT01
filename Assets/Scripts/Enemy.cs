@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         InitializeAgent();
 
         //find all available nodes and add thme to the node list
@@ -113,14 +114,20 @@ public class Enemy : MonoBehaviour
             else
                 return null;
         }
-        
+
 
         //for each neighbour of current node
         //check if its on the stack
         //Check if its already searched
         //if neither is true, add neighour to stack and set currentNode as parent
 
-        //foreach (Node.)
+        foreach (Node neighbours in currentNode.Children) 
+        {
+            if (nodeStack.Contains(neighbours) == true) 
+            {
+                currentNode = neighbours;
+            }
+        }
         
 
 
