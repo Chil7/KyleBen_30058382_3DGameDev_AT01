@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //list variable for stack
-    private List<Node> unsearchedNode;
+    private List<Node> unsearchedNode = new List<Node>();
 
     //var for starting, current, destination node
     [Tooltip("Movement speed modifier.")]
@@ -18,6 +19,7 @@ public class Enemy : MonoBehaviour
 
     public delegate void GameEndDelegate();
     public event GameEndDelegate GameOverEvent  = delegate { };
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,13 +82,6 @@ public class Enemy : MonoBehaviour
         currentDir = currentDir.normalized;
     }
 
-    void InitializeDFS(int _targetNode)
-    {
-        currentNode = GameManager.Instance.Nodes[_targetNode];
-        currentDir = currentNode.transform.position - transform.position;
-        currentDir = currentDir.normalized;
-    }
-
     //Implement DFS algorithm method here
 
         //List of nodes were searching (stack
@@ -110,20 +105,23 @@ public class Enemy : MonoBehaviour
     {
         bool _isFound = false;
         var _currentNode = GameManager.Instance.Nodes[0];
+        var _playerTargetNode = GameManager.Instance.Player.TargetNode;
 
-        unsearchedNode.Add(currentNode);
+        unsearchedNode.Clear();
 
-        while (_isFound == false)
+        unsearchedNode.Add(_currentNode);
+
+        while (_isFound == false && unsearchedNode.Count > -1)
         {
-            if (_currentNode == GameManager.Instance.Player.TargetNode)
+            if (_currentNode == _playerTargetNode)
             {
                 _isFound = true;
-                //Set destination
+                currentNode = _currentNode;
                 break;
             }
             else
             {
-                foreach (Node children in currentNode.Children)
+                foreach (Node children in _currentNode.Children)
                 {
                     unsearchedNode.Add(children);
                 }

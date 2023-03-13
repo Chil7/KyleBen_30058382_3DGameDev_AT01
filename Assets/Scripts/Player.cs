@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
     void Start()
     {
 
-
         foreach (Node node in GameManager.Instance.Nodes)
         {
             if(node.Parents.Length > 2 && node.Children.Length == 0)
@@ -72,30 +71,53 @@ public class Player : MonoBehaviour
     }
 
     //Implement mouse interaction method here
+    //if object in UI which mouse is over is tagged 'button'
+    //call the input (direction) method
+    //invoke "change coulour" event
     public void MouseInteraction(int index)
     {
+        Vector3 direction = new Vector3();
+
+        RaycastHit hit;
+
+
         switch (index)
         {
             case 4:
                 {
-                    return;
+                    direction = - Vector3.right;
+                    break;
                 }
             case 3:
                 {
-                    return;
+                    direction = Vector3.right;
+                    break;
                 }
             case 2:
                 {
-                    return;
+                    direction = - Vector3.forward;
+                    break;
                 }
             case 1:
                 {
-                    return;
+                    direction = Vector3.forward;
+                    break;
                 }
-            
-            //Move UP
+
+
         }
-        
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
+        {
+            Node _tempNode;
+
+
+            if (hit.collider.TryGetComponent<Node>(out _tempNode))
+            {
+                MoveToNode(_tempNode);
+            }
+        }
+
     }
 
     /// <summary>
