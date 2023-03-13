@@ -41,10 +41,12 @@ public class Enemy : MonoBehaviour
                 if (Vector3.Distance(transform.position, currentNode.transform.position) > 0.25f)
                 {
                     transform.Translate(currentDir * speed * Time.deltaTime);
+                    //Debug.Log((Vector3.Distance(transform.position, currentNode.transform.position)));
                 }
                 //Implement path finding here
                 else
                 {
+                    Debug.Log("Yes");
                     DepthFirstSearch();
                 }
             }
@@ -117,6 +119,8 @@ public class Enemy : MonoBehaviour
             {
                 _isFound = true;
                 currentNode = _currentNode;
+                currentDir = currentNode.transform.position - transform.position;
+                currentDir = currentDir.normalized;
                 break;
             }
             else

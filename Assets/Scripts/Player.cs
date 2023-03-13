@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
             if(node.Parents.Length > 2 && node.Children.Length == 0)
             {
                 CurrentNode = node;
+                TargetNode = node;
                 break;
             }
         }
@@ -37,22 +38,22 @@ public class Player : MonoBehaviour
             //Implement inputs and event-callbacks here
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                
+                MouseInteraction(1);
                 Debug.Log("Up");
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-
+                MouseInteraction(2);
                 Debug.Log("Down");
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-
+                MouseInteraction(4);
                 Debug.Log("Left");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
- 
+                MouseInteraction(3);
                 Debug.Log("Right");
             }
         }
