@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -8,8 +10,6 @@ public class Node : MonoBehaviour
     [SerializeField] private Node[] parents;
     [Tooltip("Child directly below node should always be first in array.")]
     [SerializeField] private Node[] children;
-
-    //a boolean variable for checking if this node has been searched
 
     /// <summary>
     /// Returns the children of the node.
@@ -25,6 +25,7 @@ public class Node : MonoBehaviour
     private void Start()
     {
         //find all neighbouring nodes and addd the to neighbour
+
     }
 
     private void Update()
@@ -32,6 +33,10 @@ public class Node : MonoBehaviour
         //method for toggling 'searched' between true and false
 
         //method for clearing the parent node
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ClearParent();
+        }
     }
 
     private void OnDrawGizmos()
@@ -52,5 +57,11 @@ public class Node : MonoBehaviour
                 Debug.DrawLine(transform.position + offset, node.transform.position + offset, Color.green);
             }
         }
+    }
+
+    private void ClearParent()
+    {
+        Debug.Log("Cleared");
+        Array.Clear(Parents, 0, parents.Length);
     }
 }

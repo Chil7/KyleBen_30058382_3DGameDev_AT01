@@ -6,22 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //list variable for stack
-    private List<Node> nodeStack;
-
-    //list v for path
-    private List<Node> nodePath;
-
-    //list of all nodes in the graph
-    private List<Node> nodeGraph;
+    private List<Node> unsearchedNode;
 
     //var for starting, current, destination node
-
     [Tooltip("Movement speed modifier.")]
     [SerializeField] private float speed = 3;
     private Node currentNode;
-
-    private Node startNode;
-    private Node targetNode;
 
     private Vector3 currentDir;
     private bool playerCaught = false;
@@ -51,6 +41,10 @@ public class Enemy : MonoBehaviour
                     transform.Translate(currentDir * speed * Time.deltaTime);
                 }
                 //Implement path finding here
+                else
+                {
+                    DepthFirstSearch();
+                }
             }
             else
             {
@@ -86,64 +80,56 @@ public class Enemy : MonoBehaviour
         currentDir = currentDir.normalized;
     }
 
-    //Implement DFS algorithm method here
-    public List<Node> FindPath(Node startNode, Node targetNode)
+    void InitializeDFS(int _targetNode)
     {
-        int addLocation = 0;
-        //set current node as start node
-        currentNode = startNode;
+        currentNode = GameManager.Instance.Nodes[_targetNode];
+        currentDir = currentNode.transform.position - transform.position;
+        currentDir = currentDir.normalized;
+    }
 
-        //Add current to the Stack
-        nodeStack.Insert(addLocation, currentNode);
-        //nodeStack.Insert(0, Node );
+    //Implement DFS algorithm method here
 
-        //set local variable found to false
-        bool isFound = false;
-
-        //Initiate while Loop to continue so long as "found" is false
-        //Check if currentNode is the target node
-        //if it isn't, continue the loop
-        //otherwise set 'found' to true and break the loop
-        while (isFound == false)
-        {
-            if (currentNode == targetNode)
-            {
-                isFound = true;
-                break;
-            }
-            else
-                return null;
-        }
-
-
-        //for each neighbour of current node
-        //check if its on the stack
-        //Check if its already searched
-        //if neither is true, add neighour to stack and set currentNode as parent
-
-        foreach (Node neighbours in currentNode.Children) 
-        {
-            if (nodeStack.Contains(neighbours) == true) 
-            {
-                currentNode = neighbours;
-            }
-        }
+        //List of nodes were searching (stack
+        //Variable of variable currentlys earched (use for or while loop)
+        //Boolean if target found
         
 
 
-        //set current node to 'searched'
-        //remove currentNode from stack
+        //access the nodes on gamemanager
+        //add gamemanager.instance.nodes[0] to a list of unseached nodes 9root node0
+        //check if root node is the same as Gamemanager.instance.player.targernode/currentnode
+        //if its the same : return that as the new destination for this enemy
+        //add the children of the node being searched to the list of unsearcherd nodes
+        //remove the node being searched from lsit of unsearched nodes
+        //assign the node at the top (last position of the unsearched list) as the node being searched
+        //go back to line 164
 
-        //check if the stack is empty 
-        //yes: break loop and return null with erroe message
-        //no: set last node in stack as currentNode and return to start of loop
+    //}
 
-        //Initiate while Loop to continue so long as 'found' is true
-        //Add 'currentNode' to path
-        //check if curretnnode has parent
-        //if does, set parent as cuurent Node and continue loop
-        //otherwise retrun path value
+    private void DepthFirstSearch()
+    {
+        bool _isFound = false;
+        var _currentNode = GameManager.Instance.Nodes[0];
 
-        return null;
+        unsearchedNode.Add(currentNode);
+
+        while (_isFound == false)
+        {
+            if (_currentNode == GameManager.Instance.Player.TargetNode)
+            {
+                _isFound = true;
+                //Set destination
+                break;
+            }
+            else
+            {
+                foreach (Node children in currentNode.Children)
+                {
+                    unsearchedNode.Add(children);
+                }
+                unsearchedNode.Remove(_currentNode);
+                _currentNode = unsearchedNode[unsearchedNode.Count - 1];
+            }
+        }
     }
 }

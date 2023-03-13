@@ -12,11 +12,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float speed = 4;
     private bool moving = false;
+
     private Vector3 currentDir;
 
     // Start is called before the first frame update
     void Start()
     {
+
+
         foreach (Node node in GameManager.Instance.Nodes)
         {
             if(node.Parents.Length > 2 && node.Children.Length == 0)
@@ -40,15 +43,17 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                
+
                 Debug.Log("Down");
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+
                 Debug.Log("Left");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+ 
                 Debug.Log("Right");
             }
         }
@@ -75,10 +80,19 @@ public class Player : MonoBehaviour
                 {
                     return;
                 }
-            case 5:
+            case 3:
                 {
                     return;
                 }
+            case 2:
+                {
+                    return;
+                }
+            case 1:
+                {
+                    return;
+                }
+            
             //Move UP
         }
         
