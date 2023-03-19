@@ -36,25 +36,21 @@ public class Player : MonoBehaviour
         if (moving == false)
         {
             //Implement inputs and event-callbacks here
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 MouseInteraction(1);
-                Debug.Log("Up");
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 MouseInteraction(2);
-                Debug.Log("Down");
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 MouseInteraction(4);
-                Debug.Log("Left");
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 MouseInteraction(3);
-                Debug.Log("Right");
             }
         }
         else

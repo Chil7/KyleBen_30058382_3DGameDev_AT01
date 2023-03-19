@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     //var for starting, current, destination node
     [Tooltip("Movement speed modifier.")]
     [SerializeField] private float speed = 3;
+    [SerializeField] private Node selectedNode;
+
     private Node currentNode;
 
     private Vector3 currentDir;
@@ -38,7 +40,7 @@ public class Enemy : MonoBehaviour
             if (currentNode != null)
             {
                 //If within 0.25 units of the current node.
-                if (Vector3.Distance(transform.position, currentNode.transform.position) > 0.25f)
+                if (Vector3.Distance(transform.position, currentNode.transform.position) > 0.50f)
                 {
                     transform.Translate(currentDir * speed * Time.deltaTime);
                     //Debug.Log((Vector3.Distance(transform.position, currentNode.transform.position)));
@@ -46,7 +48,6 @@ public class Enemy : MonoBehaviour
                 //Implement path finding here
                 else
                 {
-                    Debug.Log("Yes");
                     DepthFirstSearch();
                 }
             }
@@ -79,7 +80,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void InitializeAgent()
     {
-        currentNode = GameManager.Instance.Nodes[0];
+        currentNode = selectedNode;
         currentDir = currentNode.transform.position - transform.position;
         currentDir = currentDir.normalized;
     }
@@ -106,7 +107,7 @@ public class Enemy : MonoBehaviour
     private void DepthFirstSearch()
     {
         bool _isFound = false;
-        var _currentNode = GameManager.Instance.Nodes[0];
+        var _currentNode = selectedNode;
         var _playerTargetNode = GameManager.Instance.Player.TargetNode;
 
         unsearchedNode.Clear();

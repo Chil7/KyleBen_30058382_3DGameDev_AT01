@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Text gameOverText;
+
     //Stores all the nodes
     [SerializeField] private Node[] nodes;
     //Stores reference to the player
@@ -27,6 +30,14 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<Enemy>().GameOverEvent += GameOver;
     }
 
+    private void Start()
+    {
+        if (gameOverText.gameObject.activeSelf == true)
+        {
+            GameOverTextPopup();
+        }
+    }
+
     /// <summary>
     /// Triggers the Restart Game coroutine.
     /// </summary>
@@ -41,8 +52,14 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator RestartGame()
     {
+        GameOverTextPopup();
         player.enabled = false;
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void GameOverTextPopup()
+    {
+        gameOverText.gameObject.SetActive(!gameOverText.gameObject.activeSelf);
     }
 }
