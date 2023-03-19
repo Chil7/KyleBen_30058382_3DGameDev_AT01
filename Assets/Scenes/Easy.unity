@@ -1190,7 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  selectedNode: {fileID: 0}
+  selectedNode: {fileID: 1278480585}
 --- !u!135 &1059721680
 SphereCollider:
   m_ObjectHideFlags: 0
