@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
 
         foreach (RaycastResult result in results) 
         {
-            if(result.gameObject.TryGetComponent<NavButton>(out currentButton))
+            if(result.gameObject.TryGetComponent<NavButton>(out currentButton) && result.gameObject.tag == "Button")
             {
                 Debug.Log(currentButton.direction);
                 FindNode(currentButton.direction);
