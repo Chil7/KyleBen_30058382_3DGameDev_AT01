@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +16,16 @@ public class Player : MonoBehaviour
 
     private Vector3 currentDir;
 
+    [SerializeField] private EventSystem eventSystem;
+    [SerializeField] private GraphicRaycaster raycaster;
+    private PointerEventData pointerEventData;
+
+    [SerializeField] Node northNode;
+    [SerializeField] Node southNode;
+    [SerializeField] Node eastNode;
+    [SerializeField] Node westNode;
+
+    private NavButton currentButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +39,7 @@ public class Player : MonoBehaviour
                 break;
             }
         }
+        CheckAvailableNodes();
     }
 
     // Update is called once per frame
@@ -38,19 +50,19 @@ public class Player : MonoBehaviour
             //Implement inputs and event-callbacks here
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
-                MouseInteraction(1);
+                FindNode(1);
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
-                MouseInteraction(2);
+                FindNode(2);
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
-                MouseInteraction(4);
+                FindNode(4);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
-                MouseInteraction(3);
+                FindNode(3);
             }
         }
         else
@@ -62,7 +74,56 @@ public class Player : MonoBehaviour
             else
             {
                 moving = false;
+                CheckAvailableNodes();
                 CurrentNode = TargetNode;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            MouseInteraction();
+        }
+    }
+
+    public void CheckAvailableNodes()
+    {
+        RaycastHit hit;
+        Node _tempNode;
+
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+
+            if (hit.collider.TryGetComponent<Node>(out _tempNode))
+            {
+                northNode = _tempNode;
+            }
+        }
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(- Vector3.forward), out hit, Mathf.Infinity))
+        {
+
+            if (hit.collider.TryGetComponent<Node>(out _tempNode))
+            {
+                southNode = _tempNode;
+            }
+        }
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, Mathf.Infinity))
+        {
+
+            if (hit.collider.TryGetComponent<Node>(out _tempNode))
+            {
+                eastNode = _tempNode;
+            }
+        }
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(- Vector3.right), out hit, Mathf.Infinity))
+        {
+
+            if (hit.collider.TryGetComponent<Node>(out _tempNode))
+            {
+                westNode = _tempNode;
             }
         }
     }
@@ -71,48 +132,64 @@ public class Player : MonoBehaviour
     //if object in UI which mouse is over is tagged 'button'
     //call the input (direction) method
     //invoke "change coulour" event
-    public void MouseInteraction(int index)
+    public void MouseInteraction()
     {
-        Vector3 direction = new Vector3();
+        pointerEventData = new PointerEventData(eventSystem);
 
-        RaycastHit hit;
+        pointerEventData.position = Input.mousePosition;
 
+        List<RaycastResult> results = new List<RaycastResult>();
 
-        switch (index)
+        raycaster.Raycast(pointerEventData, results);
+
+        foreach (RaycastResult result in results) 
+        {
+            if(result.gameObject.TryGetComponent<NavButton>(out currentButton))
+            {
+                Debug.Log(currentButton.direction);
+                FindNode(currentButton.direction);
+            }
+        }
+    }
+
+    public void FindNode(int _targetNode)
+    {
+        switch (_targetNode)
         {
             case 4:
                 {
-                    direction = - Vector3.right;
+                    if (westNode != null) 
+                    {
+                        MoveToNode(westNode);
+                    }
                     break;
                 }
             case 3:
                 {
-                    direction = Vector3.right;
+
+                    if (eastNode != null)
+                    {
+                        MoveToNode(eastNode);
+                    }
                     break;
                 }
             case 2:
                 {
-                    direction = - Vector3.forward;
+                    if (southNode != null)
+                    {
+                        MoveToNode(southNode);
+                    }
                     break;
                 }
             case 1:
                 {
-                    direction = Vector3.forward;
+                    if (northNode != null)
+                    {
+                        MoveToNode(northNode);
+                    }
                     break;
                 }
 
-
-        }
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
-        {
-            Node _tempNode;
-
-
-            if (hit.collider.TryGetComponent<Node>(out _tempNode))
-            {
-                MoveToNode(_tempNode);
-            }
         }
 
     }

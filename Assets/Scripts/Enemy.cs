@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour
     private void DepthFirstSearch()
     {
         bool _isFound = false;
-        var _currentNode = selectedNode;
+        var _currentNode = GameManager.Instance.Nodes[0];
         var _playerTargetNode = GameManager.Instance.Player.TargetNode;
 
         unsearchedNode.Clear();
@@ -131,7 +131,14 @@ public class Enemy : MonoBehaviour
                     unsearchedNode.Add(children);
                 }
                 unsearchedNode.Remove(_currentNode);
-                _currentNode = unsearchedNode[unsearchedNode.Count - 1];
+                if (unsearchedNode.Count - 1 > 0)
+                {
+                    _currentNode = unsearchedNode[unsearchedNode.Count - 1];
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }

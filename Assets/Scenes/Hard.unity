@@ -714,6 +714,8 @@ GameObject:
   - component: {fileID: 662237746}
   - component: {fileID: 662237745}
   - component: {fileID: 662237744}
+  - component: {fileID: 662237748}
+  - component: {fileID: 662237747}
   m_Layer: 0
   m_Name: UpArrow
   m_TagString: Button
@@ -834,6 +836,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662237742}
   m_CullTransparentMesh: 1
+--- !u!114 &662237747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662237742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d943f7355ea174e95981ba62ace16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+--- !u!65 &662237748
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662237742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100, z: 1}
+  m_Center: {x: 50, y: 0, z: 0}
 --- !u!1 &700098635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,6 +1235,8 @@ GameObject:
   - component: {fileID: 962021838}
   - component: {fileID: 962021837}
   - component: {fileID: 962021836}
+  - component: {fileID: 962021840}
+  - component: {fileID: 962021839}
   m_Layer: 0
   m_Name: RightArrow
   m_TagString: Button
@@ -1327,6 +1357,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962021834}
   m_CullTransparentMesh: 1
+--- !u!114 &962021839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962021834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d943f7355ea174e95981ba62ace16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 3
+--- !u!65 &962021840
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962021834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100, z: 1}
+  m_Center: {x: 50, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1796,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97d09ec131940f459b8aecbbf36557a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 5
+  eventSystem: {fileID: 0}
+  raycaster: {fileID: 0}
+  northNode: {fileID: 0}
+  southNode: {fileID: 0}
+  eastNode: {fileID: 0}
+  westNode: {fileID: 0}
 --- !u!135 &1220234474
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2095,6 +2157,8 @@ GameObject:
   - component: {fileID: 1496370645}
   - component: {fileID: 1496370644}
   - component: {fileID: 1496370643}
+  - component: {fileID: 1496370647}
+  - component: {fileID: 1496370646}
   m_Layer: 0
   m_Name: LeftArrow
   m_TagString: Button
@@ -2215,6 +2279,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496370641}
   m_CullTransparentMesh: 1
+--- !u!114 &1496370646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496370641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d943f7355ea174e95981ba62ace16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 4
+--- !u!65 &1496370647
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496370641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100, z: 1}
+  m_Center: {x: 50, y: 0, z: 0}
 --- !u!1 &1504686825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,6 +2924,8 @@ GameObject:
   - component: {fileID: 2119565700}
   - component: {fileID: 2119565699}
   - component: {fileID: 2119565698}
+  - component: {fileID: 2119565702}
+  - component: {fileID: 2119565701}
   m_Layer: 0
   m_Name: DownArrow
   m_TagString: Button
@@ -2954,3 +3046,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119565696}
   m_CullTransparentMesh: 1
+--- !u!114 &2119565701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119565696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d943f7355ea174e95981ba62ace16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 2
+--- !u!65 &2119565702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119565696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100, z: 1}
+  m_Center: {x: 50, y: 0, z: 0}
