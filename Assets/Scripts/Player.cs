@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         foreach (Node node in GameManager.Instance.Nodes)
         {
             if(node.Parents.Length > 2 && node.Children.Length == 0)
