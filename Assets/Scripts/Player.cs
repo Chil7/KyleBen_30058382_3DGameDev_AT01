@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
     [SerializeField] Node westNode;
 
     private NavButton currentButton;
+
+    //Inputs
+    private float horizontalInput;
+    private float verticalInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,27 +44,34 @@ public class Player : MonoBehaviour
             }
         }
         CheckAvailableNodes();
+
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
     }
 
     // Update is called once per frame
     void Update()
     {
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
         if (moving == false)
         {
             //Implement inputs and event-callbacks here
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            if (verticalInput > 0)
             {
                 FindNode(1);
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            else if (verticalInput < 0)
             {
                 FindNode(2);
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            else if (horizontalInput < 0)
             {
+
                 FindNode(4);
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            else if (horizontalInput > 0)
             {
                 FindNode(3);
             }
