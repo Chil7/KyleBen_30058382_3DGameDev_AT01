@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void GameOver()
     {
-        StartCoroutine(RestartGame());
+        GameOverEvent();
     }
 
     /// <summary>
@@ -52,14 +52,29 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator RestartGame()
     {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void GameOverEvent()
+    {
         GameOverTextPopup();
         player.enabled = false;
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void GameOverTextPopup()
     {
         gameOverText.gameObject.SetActive(!gameOverText.gameObject.activeSelf);
     }
+
+    public void RestartGameEvent()
+    {
+        StartCoroutine(RestartGame());
+    }
+
+    public void SwitchMainMenu(string _sceneName)
+    {
+        SceneManager.LoadScene(_sceneName);
+    }
+
 }

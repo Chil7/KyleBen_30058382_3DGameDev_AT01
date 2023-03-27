@@ -25,7 +25,16 @@ public class Player : MonoBehaviour
     [SerializeField] Node eastNode;
     [SerializeField] Node westNode;
 
+    [SerializeField] Image northNodeButton;
+    [SerializeField] Image southNodeButton;
+    [SerializeField] Image eastNodeButton;
+    [SerializeField] Image westNodeButton;
+
+    
+
     private NavButton currentButton;
+
+    public Image currentButtonClicked;
 
     //Inputs
     private float horizontalInput;
@@ -44,6 +53,7 @@ public class Player : MonoBehaviour
             }
         }
         CheckAvailableNodes();
+        ChangeColour();
 
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -84,8 +94,10 @@ public class Player : MonoBehaviour
             }
             else
             {
+                ClearNodes();
                 moving = false;
                 CheckAvailableNodes();
+                ChangeColour();
                 CurrentNode = TargetNode;
             }
         }
@@ -94,6 +106,14 @@ public class Player : MonoBehaviour
         {
             MouseInteraction();
         }
+    }
+
+    public void ClearNodes()
+    {
+        northNode = null;
+        southNode = null;
+        eastNode = null;
+        westNode = null;
     }
 
     public void CheckAvailableNodes()
@@ -171,6 +191,7 @@ public class Player : MonoBehaviour
                 {
                     if (westNode != null) 
                     {
+                        currentButtonClicked = westNodeButton;
                         MoveToNode(westNode);
                     }
                     break;
@@ -180,6 +201,7 @@ public class Player : MonoBehaviour
 
                     if (eastNode != null)
                     {
+                        currentButtonClicked = eastNodeButton;
                         MoveToNode(eastNode);
                     }
                     break;
@@ -188,6 +210,7 @@ public class Player : MonoBehaviour
                 {
                     if (southNode != null)
                     {
+                        currentButtonClicked = southNodeButton;
                         MoveToNode(southNode);
                     }
                     break;
@@ -196,6 +219,7 @@ public class Player : MonoBehaviour
                 {
                     if (northNode != null)
                     {
+                        currentButtonClicked = northNodeButton;
                         MoveToNode(northNode);
                     }
                     break;
@@ -203,6 +227,58 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    private void ChangeColour()
+    {
+        if (moving == false)
+        {
+
+            if (northNode == null)
+            {
+                northNodeButton.color = Color.red;
+            }
+            else
+            {
+                northNodeButton.color = Color.green;
+            }
+
+            if (southNode == null)
+            {
+                southNodeButton.color = Color.red;
+            }
+            else
+            {
+                southNodeButton.color = Color.green;
+            }
+
+            if (eastNode == null)
+            {
+                eastNodeButton.color = Color.red;
+            }
+            else
+            {
+                eastNodeButton.color = Color.green;
+            }
+
+            if (westNode == null)
+            {
+                westNodeButton.color = Color.red;
+            }
+            else
+            {
+                westNodeButton.color = Color.green;
+            }
+        }
+        else if (moving == true)
+        {
+            northNodeButton.color = Color.black;
+            southNodeButton.color = Color.black;
+            eastNodeButton.color  = Color.black;
+            westNodeButton.color = Color.black;
+
+            currentButtonClicked.color = Color.yellow;
+        }
     }
 
     /// <summary>
@@ -217,6 +293,7 @@ public class Player : MonoBehaviour
             currentDir = TargetNode.transform.position - transform.position;
             currentDir = currentDir.normalized;
             moving = true;
+            ChangeColour();
         }
     }
 }
